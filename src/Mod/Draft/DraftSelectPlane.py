@@ -122,7 +122,7 @@ class Draft_SelectPlane:
             self.display(FreeCAD.DraftWorkingPlane.axis)
             self.finish()
             return
-        
+
         # rock 'n roll!
         FreeCADGui.Control.showDialog(self.taskd)
         self.call = self.view.addEventCallback("SoEvent", self.action)
@@ -163,8 +163,8 @@ class Draft_SelectPlane:
 
     def checkSelection(self):
 
-        if self.handle():
-            self.finish()
+        self.handle()
+        self.finish()
 
     def handle(self):
         
