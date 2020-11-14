@@ -78,8 +78,21 @@ def makeSite(objectslist=None,baseobj=None,name="Site"):
 
 
 def toNode(shape):
+    """Return a coin node of a line created from a part shape.
 
-    """builds a linear pivy node from a shape"""
+    Access geometry of a shape such as an edge, circle, or polygon from open inventor, and convert that 
+    to a line, or series of lines.
+
+    Parameters
+    ----------
+    shape: <Part.Edge> or <Part.Wire>
+        The part to convert.
+
+    Returns
+    -------
+    <pivy.coin.SoSeparator>:
+        The created coin node.
+    """
 
     from pivy import coin
     buf = shape.writeInventor(2,0.01)
@@ -105,11 +118,31 @@ def toNode(shape):
 
 
 def makeSolarDiagram(longitude,latitude,scale=1,complete=False,tz=None):
+    """Return a solar diagram as a coin node.
 
-    """makeSolarDiagram(longitude,latitude,[scale,complete,tz]):
-    returns a solar diagram as a pivy node. If complete is
-    True, the 12 months are drawn. Tz is the timezone related to
-    UTC (ex: -3 = UTC-3)"""
+    Requires the python module lbt-ladybug. The previous dependancy, pysolar,
+    is being depreciated.
+
+    Parameters
+    ----------
+    longitude: float
+        The site's longitude in degrees, between -90 and 90.
+    lattitude: float
+        The site's latitude in degrees, between -180(west) and 180(east).
+    scale: float
+        The radius of the solar diagram, in mm.
+    complete: boolean
+        If true, all 12 months are drawn.
+    tz: int
+        Time zone between -12 hours (west) and +14 hours (east), related to UTC
+        (ex: -3 = UTC-3). If None, the time zone will be an estimated integer
+        value derived from the longitude in accordance with solar time.
+
+    Returns
+    -------
+    <pivy.coin.SoSeparator>:
+        The solar diagram root coin node.
+    """
 
     oldversion = False
     ladybug = False
@@ -290,14 +323,30 @@ def makeSolarDiagram(longitude,latitude,scale=1,complete=False,tz=None):
 
 
 def makeWindRose(epwfile,scale=1,sectors=24):
+    """Return a wind rose diagram as a coin node.
 
-    """makeWindRose(site,sectors):
-    returns a wind rose diagram as a pivy node"""
+    Requires the python module lbt-ladybug.
+
+    Parameters
+    ----------
+    epwfile: string
+        Path to the ewp file.
+    scale:
+        Radius of the wind rose, in mm.
+    sectors: int
+        The number of sectors to give the windrose.
+        
+    Returns
+    -------
+    <pivy.coin.SoSeparator>:
+        The wind rose root coin node.
+    """
 
     try:
         import ladybug
         from ladybug import epw
     except:
+        # TODO: Should this message change to "unable to generate wind rose diagram?"
         FreeCAD.Console.PrintError("The ladybug module was not found. Unable to generate solar diagrams\n")
         return None
     if not epwfile:
@@ -800,8 +849,10 @@ class _Site(ArchIFC.IfcProduct):
             obj.AdditionVolume = addvol
 
     def addObject(self,obj,child):
+        """Add an object to the group of this BuildingPart.
 
-        "Adds an object to the group of this BuildingPart"
+        TODO: Determine when this method is run.
+        """
 
         if not child in obj.Group:
             g = obj.Group

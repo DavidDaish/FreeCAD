@@ -121,8 +121,8 @@ class IfcRoot:
         If the IFC type is undefined, return the schema of the
         IfcBuildingElementProxy.
 
-        Parameter
-        ---------
+        Parameters
+        ----------
         IfcType: str
             The IFC type whose schema you want.
 
