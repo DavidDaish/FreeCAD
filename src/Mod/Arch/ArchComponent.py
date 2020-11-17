@@ -235,11 +235,6 @@ class Component(ArchIFC.IfcProduct):
 
     def onDocumentRestored(self, obj):
         """Method run when the document is restored. Re-add the Arch component properties.
-
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
         """
         Component.setProperties(self, obj)
 
@@ -250,11 +245,6 @@ class Component(ArchIFC.IfcProduct):
 
         Process subshapes of the object to add additions, and subtract
         subtractions from the object's shape.
-
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
         """
 
         if self.clone(obj):
@@ -285,8 +275,6 @@ class Component(ArchIFC.IfcProduct):
 
         Parameters
         ----------
-        obj: <App::FeaturePython>
-            The component object.
         prop: string
             The name of the property that has changed.
         """
@@ -304,8 +292,6 @@ class Component(ArchIFC.IfcProduct):
 
         Parameters
         ----------
-        obj: <App::FeaturePython>
-            The component object.
         prop: string
             The name of the property that has changed.
         """
@@ -348,11 +334,6 @@ class Component(ArchIFC.IfcProduct):
         "Hosts" properties. Objects are set to move with their host via the
         MoveWithHost property.
 
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
-
         Returns
         -------
         list of <App::FeaturePython>
@@ -381,11 +362,6 @@ class Component(ArchIFC.IfcProduct):
 
         Recursively crawl hosts until a Floor or BuildingPart is found, then
         return the value of its Height property.
-
-        Parameters
-        ---------
-        obj: <App::FeaturePython>
-            The component object.
 
         Returns
         -------
@@ -417,11 +393,6 @@ class Component(ArchIFC.IfcProduct):
         of the same type, or if the object has the type "Component" or
         "BuildingPart".
 
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
-
         Returns
         -------
         bool
@@ -445,11 +416,6 @@ class Component(ArchIFC.IfcProduct):
 
         Look to base object, and find other objects that are based off this
         base object. If these objects are the same type, return them.
-
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
 
         Returns
         -------
@@ -486,11 +452,6 @@ class Component(ArchIFC.IfcProduct):
         If an object derived from a <Part::Multifuse> is encountered, return
         this data as a tuple containing lists. The lists will contain the same
         data as above, from each of the objects within the multifuse.
-
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
 
         Returns
         -------
@@ -655,8 +616,6 @@ class Component(ArchIFC.IfcProduct):
 
         Parameters
         ----------
-        obj: <App::FeaturePython>
-            The component object.
         prop: string
             The name of the property that has changed.
         """
@@ -691,8 +650,6 @@ class Component(ArchIFC.IfcProduct):
 
         Parameters
         ----------
-        obj: <App::FeaturePython>
-            The component object.
         base: <Part.Shape>, optional
             The base shape to add Additions and Subtractions to.
         placement: <Base.Placement>, optional
@@ -819,8 +776,6 @@ class Component(ArchIFC.IfcProduct):
 
         Parameters
         ----------
-        obj: <App::FeaturePython>
-            The component object.
         shape: <Part.Shape>
             The shape to copy.
         placement:
@@ -888,8 +843,6 @@ class Component(ArchIFC.IfcProduct):
 
         Parameters
         ----------
-        obj: <App::FeaturePython>
-            The component object.
         shape: <Part.Shape>
             The shape to check and apply to the object.
         placement: <Base.Placement>
@@ -958,11 +911,6 @@ class Component(ArchIFC.IfcProduct):
 
         Assign these values to the object's "VerticalArea", "HorizontalArea",
         and "PerimeterLength" properties.
-
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
         """
 
 
@@ -1044,11 +992,6 @@ class Component(ArchIFC.IfcProduct):
 
         All objects whose IfcType is suffixed with the string " Sandard Case"
         are automatically a standard case.
-
-        Parameters
-        ----------
-        obj: <App::FeaturePython>
-            The component object.
 
         Returns
         -------
@@ -1243,8 +1186,6 @@ class ViewProviderComponent:
 
         Parameters
         ----------
-        vobj: <Gui.ViewProviderDocumentObject>
-            The component's view provider object.
         prop: string
             The name of the property that has changed.
         """
@@ -1287,11 +1228,6 @@ class ViewProviderComponent:
         of the display mode node.
 
         Add the HiRes display mode.
-
-        Parameters
-        ----------
-        vobj: <Gui.ViewProviderDocumentObject>
-            The component's view provider object.
         """
 
         from pivy import coin
@@ -1308,11 +1244,6 @@ class ViewProviderComponent:
 
         Define mode HiRes, which displays the component as a mesh, intended as
         a more visually appealing version of the component.
-
-        Parameters
-        ----------
-        vobj: <Gui.ViewProviderDocumentObject>
-            The component's view provider object.
 
         Returns
         -------
@@ -1338,8 +1269,6 @@ class ViewProviderComponent:
 
         Parameters
         ----------
-        vobj: <Gui.ViewProviderDocumentObject>
-            The component's view provider object.
         mode: str
             The name of the display mode the view provider has switched to.
 
@@ -1403,11 +1332,6 @@ class ViewProviderComponent:
         Set the host object's Base object as a child, and set any additions or
         subtractions as children.
 
-        Parameters
-        ----------
-        vobj: <Gui.ViewProviderDocumentObject>
-            The component's view provider object.
-
         Returns
         -------
         list of <App::DocumentObject>s:
@@ -1456,8 +1380,6 @@ class ViewProviderComponent:
 
         Parameters
         ----------
-        vobj: <Gui.ViewProviderDocumentObject>
-            The component's view provider object.
         mode: int or str
             The edit mode the document has requested. Set to 0 when requested via
             a double click or [Edit -> Toggle Edit Mode].
@@ -1498,8 +1420,6 @@ class ViewProviderComponent:
 
         Parameters
         ----------
-        vobj: <Gui.ViewProviderDocumentObject>
-            The component's view provider object.
         menu: <PySide2.QtWidgets.QMenu>
             The context menu already assembled prior to this method being
             called.
