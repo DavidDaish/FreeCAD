@@ -1061,6 +1061,47 @@ class _ViewProviderSite:
             self.updateCompassScale(obj.ViewObject)
 
     def onChanged(self,vobj,prop):
+        """Method called when the view provider has a property changed.
+
+        If SolarDiagramPosition is changed, pass the coordinates to the coin
+        SoTransformation as a translation, and rotate the transformation around
+        the Z axis as per the Declination property of the site object.
+
+        If SolarDiagramColor is changed, pass the new color to the coin
+        SoBaseColor.
+
+        If SolarDiagram is changed, delete the diagramnode coin node, and only
+        recreate it if SolarDiagram is True. Recreate it using the
+        makeSolarDiagram function. Use a soSwitch to disable and enable
+        traversal of the diagram coin node.
+
+        If WindRose is changed, delete the windrosenode coin node, and only
+        recreate it if WindRose is True. Attempt to import the ladybug package
+        prior to recreating the node. Use the makeSolarDiagram function to
+        recreate it. Use a soSwitch to disable and enable traversal of the wind
+        rose coin node.
+        
+        If Visibility is changed, apply the updateCompassVisibility method if
+        it's set to true, and hide the coin node otherwise.
+
+        If Orientation is changed, if it has been set to 'True North', apply
+        the addTrueNorthRotation method. If it has been set to something else,
+        apply the removeTrueNorthRotation method.
+
+        If UpdateDeclination is changed, apply the updateDeclination method.
+
+        If Compass is changed, apply the updateCompassVisibility method.
+
+        If CompassRotation is changed, apply the updateDeclination and
+        rotateCompass methods.
+
+        If CompassPosition is changed, apply the updateCompassLocation method.
+
+        Parameters
+        ----------
+        prop: string
+            The name of the property that has changed.
+        """
 
         if prop == "SolarDiagramPosition":
             if hasattr(vobj,"SolarDiagramPosition"):
